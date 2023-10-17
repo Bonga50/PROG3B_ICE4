@@ -30,13 +30,19 @@ namespace PROG3B_ICE4
 
         public static void printParent(Dictionary<string, int> map, string arg) { 
             bool isLastParent=false;
-            int parent = map.FirstOrDefault(x => x.Key==arg).Value;
-            while (!isLastParent)
+            KeyValuePair<string,int> parent = map.FirstOrDefault(x => x.Key==arg);
+
+            if (parent.Value != -1)
             {
-                Console.WriteLine(map.ElementAt(parent));
-                parent = map.ElementAt(parent).Value;
-                if (parent==-1) { isLastParent = true; break; }
+                Console.WriteLine(parent.Key);
+                parent = map.ElementAt(parent.Value);
+                printParent(map, parent.Key);
             }
+            else
+            {
+                return;
+            }
+           
         }
     }
 }
